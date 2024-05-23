@@ -111,6 +111,12 @@ public class Tienda extends Empresa implements Facturacion{
         System.out.println("MONTO TOTAL/COTIZACION TOTAL ="+montoTotal);
 
         Transacciones transaccionAuxiliar = new Transacciones(transacciones.getId(), transacciones.getDni() , transacciones.getPedido(), transacciones.getEstado(),transacciones.getFechaPago(), montoTotal);
+        for(Transacciones transAux : transaccion){
+            if(transAux == null){
+                //COLOCO LA TRANSACCION HECHA EN LA TIENDA
+                transAux = transaccionAuxiliar;
+            }
+        }
     }
     //ESTA FUNCION AGREGA CON UNA TRANSACCION LOS PEDIDOS A LA TIENDA
     public void agregarTransacciones(Transacciones transacciones){
