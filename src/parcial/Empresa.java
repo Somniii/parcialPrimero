@@ -26,4 +26,8 @@ public class Empresa {
     public void setCuit(String cuit) {
         this.cuit = cuit;
     }
+    @Override
+    public void despacharPedidos(Pedido [] pedidos){
+
+    }
 }
