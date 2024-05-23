@@ -37,4 +37,5 @@ public class Proveedor extends  Empresa{
     public void setPedidosTienda(Pedido[] pedidosTienda) {
         this.pedidosTienda = pedidosTienda;
     }
+
 }
