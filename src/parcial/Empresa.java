@@ -26,6 +26,13 @@ public class Empresa {
     public void setCuit(String cuit) {
         this.cuit = cuit;
     }
+<<<<<<< HEAD
 
     real
+=======
+    @Override
+    public void despacharPedidos(Pedido [] pedidos){
+
+    }
+>>>>>>> master
 }
