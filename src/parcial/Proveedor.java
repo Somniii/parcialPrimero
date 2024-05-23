@@ -1,10 +1,6 @@
 package parcial;
 
-<<<<<<< HEAD
 public class Proveedor extends  Empresa implements Facturacion, Comprador{
-=======
-public class Proveedor extends  Empresa implements Facturacion{
->>>>>>> master
     private String nombreContancto,telefonoContacto;
     private Pedido[] pedidosTienda;
 
@@ -93,8 +89,5 @@ public class Proveedor extends  Empresa implements Facturacion{
         }
     }
 
-    @Override
-    public void emitirFactoura(Transacciones transacciones) {
 
-    }
 }

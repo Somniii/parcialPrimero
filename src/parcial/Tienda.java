@@ -1,11 +1,7 @@
 package parcial;
 
-<<<<<<< HEAD
 
 public class Tienda extends Empresa implements Comprador, Facturacion {
-=======
-public class Tienda extends Empresa implements Facturacion{
->>>>>>> master
     private int sucursal;
     private Articulo[] inventario;
     private Pedido[] pedidoCliente;
@@ -94,25 +90,6 @@ public class Tienda extends Empresa implements Facturacion{
         }
 
     }
-<<<<<<< HEAD
-
-
-    @Override
-    public void realizarPedido(Pedido pedido, Empresa empresa) {
-        Pedido[] pedidoAuxiliar = pedidoCliente;
-        for(int i = 0; i<pedidoCliente.length; i++){
-            Pedido pedidoAux = pedidoCliente[i];
-            if(pedidoAux == null){
-                pedidoCliente[i] = pedido;
-            }
-        }
-    }
-
-    @Override
-    public void emitirFactoura(Transacciones transacciones) {
-
-    }
-=======
     //EMITIR FACTURA REPERCUTE EN LA CANTIDAD DE ARTICULOS DE TIENDA PONER EL VOID DE ELIMINAR O AGREGAR ARTICULO
     //CORRESPONDIENTE
     //AFECTA UNA PARTE A PROVEEDOR Y OTRA A CLIENTE , OSEA HAY DOS FACTURAS UNA DE COMPRA Y OTRA DE VENTA
@@ -158,6 +135,6 @@ public class Tienda extends Empresa implements Facturacion{
     public void despacharPedidos(Pedido [] pedidos){
 
     }
+    }
 
->>>>>>> master
 }
