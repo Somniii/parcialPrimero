@@ -1,6 +1,7 @@
 package parcial;
 
-public class Tienda extends Empresa{
+
+public class Tienda extends Empresa implements Comprador{
     private int sucursal;
     private Articulo[] inventario;
     private Pedido[] pedidoCliente;
@@ -48,5 +49,13 @@ public class Tienda extends Empresa{
 
     public void setTransaccion(Transacciones[] transaccion) {
         this.transaccion = transaccion;
+    }
+
+
+
+    public static void eliminarArticulo(Articulo articulo){
+        System.out.println("Que articulo desea eliminar?");
+
+
     }
 }
