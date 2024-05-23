@@ -11,6 +11,8 @@ public class Componente extends Articulo{
         this.marca = marca;
     }
 
+
+
     public String getMarca() {
         return marca;
     }
