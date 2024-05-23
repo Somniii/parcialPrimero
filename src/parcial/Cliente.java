@@ -36,4 +36,6 @@ public class Cliente implements Comprador{
     public void setDocumento(int documento) {
         this.documento = documento;
     }
+
+
 }

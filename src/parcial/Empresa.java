@@ -26,4 +26,6 @@ public class Empresa {
     public void setCuit(String cuit) {
         this.cuit = cuit;
     }
+
+    real
 }

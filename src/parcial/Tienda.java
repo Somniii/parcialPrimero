@@ -1,7 +1,7 @@
 package parcial;
 
 
-public class Tienda extends Empresa implements Comprador{
+public class Tienda extends Empresa implements Comprador, Facturacion {
     private int sucursal;
     private Articulo[] inventario;
     private Pedido[] pedidoCliente;
@@ -50,14 +50,6 @@ public class Tienda extends Empresa implements Comprador{
     public void setTransaccion(Transacciones[] transaccion) {
         this.transaccion = transaccion;
     }
-<<<<<<< HEAD
-
-
-
-    public static void eliminarArticulo(Articulo articulo){
-        System.out.println("Que articulo desea eliminar?");
-
-=======
     public void agregarArticulo(Articulo articulo){
         System.out.println("Que articulo desea agregar\n");
         for(Articulo aux: inventario){
@@ -76,7 +68,23 @@ public class Tienda extends Empresa implements Comprador{
         else{
             System.out.println("El inventario esta vacio");
         }
->>>>>>> master
+
+    }
+
+
+    @Override
+    public void realizarPedido(Pedido pedido, Empresa empresa) {
+        Pedido[] pedidoAuxiliar = pedidoCliente;
+        for(int i = 0; i<pedidoCliente.length; i++){
+            Pedido pedidoAux = pedidoCliente[i];
+            if(pedidoAux == null){
+                pedidoCliente[i] = pedido;
+            }
+        }
+    }
+
+    @Override
+    public void emitirFactoura(Transacciones transacciones) {
 
     }
 }

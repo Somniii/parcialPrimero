@@ -1,6 +1,7 @@
 package parcial;
 
+import java.util.Scanner;
+
 public interface Comprador {
-    public static void realizarPedido(Pedido pedido, Empresa empresa){
-    }
+    public  void realizarPedido(Pedido pedido, Empresa empresa);
 }
