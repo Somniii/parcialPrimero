@@ -41,12 +41,19 @@ public class Proveedor extends  Empresa implements Facturacion, Comprador{
     public void emitirFactoura(Transacciones transacciones) {
         System.out.println("----EMITIENDO FACTURA DE PROVEEDOR----");
         if(transacciones instanceof  Compra){
+            Tienda tiendaAux = ((Compra) transacciones).getTienda();
+
             Pedido pedidoAux = transacciones.getPedido();
             pedidoAux.actualizarCotizacion();
+            //COLOCAR LOS ARTICULOS INGRESADOS EN TIENDA QUE REALIZA LA TRANSACCION
+
+            for (Articulo aux : pedidoAux.getArticulo()){
+                //agregarArticulo(aux);
+                tiendaAux.agregarArticulo(aux);
+            }
             //TOTAL PARA EL MONTO TOTAL
             double totalParaMT = pedidoAux.getCotizacionTotal();
             transacciones.setPedido(pedidoAux);
-            double montoTotal = 0;
             if(totalParaMT <100000){
                 transacciones.setMontoTotal(totalParaMT*0.05);
             }
@@ -59,6 +66,17 @@ public class Proveedor extends  Empresa implements Facturacion, Comprador{
             else if(totalParaMT>1200000){
                 transacciones.setMontoTotal(totalParaMT*0.30);
             }
+            Transacciones[] transaccionAuxiliar = new Transacciones[tiendaAux.getTransaccion().length];
+            transaccionAuxiliar = tiendaAux.getTransaccion();
+            for(int i = 0; i <tiendaAux.getTransaccion().length;i++) {
+                Transacciones transaccionRecorrer = tiendaAux.getTransaccion()[i];
+                if (transaccionRecorrer == null) {
+                    transaccionAuxiliar[i] = transacciones;
+                }
+                break;
+            }
+            tiendaAux.setTransaccion(transaccionAuxiliar);
+
         }
     }
     @Override

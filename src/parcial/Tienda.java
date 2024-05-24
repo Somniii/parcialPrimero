@@ -52,48 +52,50 @@ public class Tienda extends Empresa implements Comprador, Facturacion {
     }
     public void agregarArticulo(Articulo articulo){
         System.out.println("ENTRANDO A LA FUNCION ELIMINAR ARTICULO\n");
-        for(Articulo aux: inventario){
-            if(aux == null){
+        for(int i = 0; i < inventario.length ; i++){
+            Articulo inventarioRecorrida = inventario[i];
+            if(inventarioRecorrida == null){
                 //VERIFICAR POR TIPO DE ARTICULO FALTA SETEARLO
-                aux = new Articulo(articulo.getId(),articulo.getNombre(),articulo.getPrecio());
+                inventario[i] = articulo;
             }
+            break;
             //VER DE ALGUNA MANERA SI NO SE PUDO AGREGAR POR EL TAMANIO DEL ARREGLO
         }
     }
     public void eliminarArticulo(Articulo articulo){
         System.out.println("ENTRANDO A LA FUNCION ELIMINAR ARTICULO");
-        for(Articulo aux: inventario){
-            if(aux.getId() == articulo.getId()){
-                //Ya con esto se esta seteando?
+        for(int i = 0; i < inventario.length ; i++){
+            Articulo inventarioAuxiliar =  inventario[i];
+            if(inventarioAuxiliar.getId() == articulo.getId()){
                 //ELIMINAR EL ARTICULO PONIENDOLO A 0 , O SINO PONERLE AUX = null
-                aux = null;
-
+                inventario[i] = null;
             }
             //LO ROMPO PARA QUE NO SIGA ELIMINANDO
             break;
         }
     }
     public Articulo buscarArticulo(String nombreBuscar){
+        Articulo articuloAEnviar = new Articulo();
         if(inventario != null){
+
             for(Articulo aux: inventario){
                 if(aux.getNombre()==nombreBuscar){
-                    System.out.println("Se econtro el articulo");
                     //retornar eso con un articulo auxiliar
-                    return new Articulo(aux.getId(), aux.getNombre(), aux.getPrecio());
+                    articuloAEnviar = aux;
+                    break;
                 }
-                else{
-                    
-                }
-                break;
+                //Si no se encontraron articulos retorna null
             }
         }
         else{
             //retornar un articulo vacio
             System.out.println("El inventario esta vacio");
-            return null;
+            articuloAEnviar=null;
         }
+        return articuloAEnviar;
 
     }
+
     //EMITIR FACTURA REPERCUTE EN LA CANTIDAD DE ARTICULOS DE TIENDA PONER EL VOID DE ELIMINAR O AGREGAR ARTICULO
     //CORRESPONDIENTE
     //AFECTA UNA PARTE A PROVEEDOR Y OTRA A CLIENTE , OSEA HAY DOS FACTURAS UNA DE COMPRA Y OTRA DE VENTA
@@ -102,50 +104,31 @@ public class Tienda extends Empresa implements Comprador, Facturacion {
         System.out.println("----EMITIENDO FACTURA DE TIENDA----");
 
         if(transacciones instanceof Venta){
+            Tienda tiendaAux = ((Venta) transacciones).getTienda();
+            //Aca abajo tengo que colocar la transaccion hecha en la tienda
             Pedido auxPedido = transacciones.getPedido();
             auxPedido.actualizarCotizacion();
-            double montoTotal = 0;
+            double montoTotal = auxPedido.getCotizacionTotal();
+            //Este for elimina los articulos que se van encontrando que son iguales a los que pide el cliente
             for (Articulo aux : auxPedido.getArticulo()){
-                montoTotal = montoTotal + aux.getPrecio();
-                eliminarArticulo(aux);
+                //eliminarArticulo(aux);
+                tiendaAux.eliminarArticulo(aux);
             }
+            transacciones.setPedido(auxPedido);
             transacciones.setMontoTotal(montoTotal);
-        }
-        System.out.println();
-        Pedido auxPedido = transacciones.getPedido();
-        //int tamanioPedido = auxPedido.getArticulo().length;
-
-
-        Transacciones transaccionAuxiliar = new Transacciones(transacciones.getId(), transacciones.getDni() , transacciones.getPedido(), transacciones.getEstado(),transacciones.getFechaPago(), montoTotal);
-        for(Transacciones transAux : transaccion){
-            if(transAux == null){
-                //COLOCO LA TRANSACCION HECHA EN LA TIENDA
-                transAux = transaccionAuxiliar;
+            //esta es la transaccion que se pone en la tienda
+            Transacciones transaccionAuxiliar = new Transacciones(transacciones.getId(), transacciones.getDni() , transacciones.getPedido(), transacciones.getEstado(),transacciones.getFechaPago(), montoTotal);
+            for(int i = 0; i <getTransaccion().length;i++){
+                Transacciones transaccionRecorrer = getTransaccion()[i];
+                if(transaccionRecorrer == null){
+                   transaccion[i] = transaccionAuxiliar;
+                }
             }
         }
+
     }
-    //ESTA FUNCION AGREGA CON UNA TRANSACCION LOS PEDIDOS A LA TIENDA
-    public void agregarTransacciones(Transacciones transacciones){
-        for(Transacciones aux : transaccion){
-            if(aux == null){
-                aux = transacciones;
-            }
-        }
-        Pedido pedidoAux = transacciones.getPedido();
 
-        //INVENTARIO TIENDA
-        for(Articulo aux : inventario){
-            //TRANSACCIONES
-            for(Articulo aux2 : pedidoAux.getArticulo()){
-                agregarArticulo(aux2);
-            }
-
-        }
-    }
     @Override
-    public void despacharPedidos(Pedido [] pedidos){
-
-    }
     public  void realizarPedido(Pedido pedido, Empresa empresa){
         
     }
