@@ -98,11 +98,12 @@ public class Proveedor extends  Empresa implements Facturacion, Comprador{
 
     @Override
     public void realizarPedido(Pedido pedido, Empresa empresa) {
-        Pedido[] pedidoAuxiliar = pedidosTienda;
-        for(int i = 0; i<pedidosTienda.length; i++){
-            Pedido pedidoAux = pedidosTienda[i];
-            if(pedidoAux == null){
-                pedidosTienda[i] = pedido;
+        if(empresa instanceof Proveedor){
+            for(int i = 0; i< pedidosTienda.length; i++){
+                if(((Proveedor) empresa).pedidosTienda[i]==null){
+                    ((Proveedor) empresa).pedidosTienda[i]=pedido;
+                    break;
+                }
             }
         }
     }
