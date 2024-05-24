@@ -1,5 +1,5 @@
 package parcial;
-
+import java.util.Scanner;
 public class Proveedor extends  Empresa implements Facturacion, Comprador{
     private String nombreContancto,telefonoContacto;
     private Pedido[] pedidosTienda;
