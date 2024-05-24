@@ -73,6 +73,16 @@ public class Proveedor extends  Empresa implements Facturacion, Comprador{
     }
     @Override
     public void despacharPedidos(Pedido [] pedidos){
+        for(int i=0; i< pedidos.length;i++){
+            Transacciones transAux = new Transacciones();
+            Pedido pedidoAux = pedidos[i];
+            transAux.setPedido(pedidoAux);
+            transAux.setId(i);
+            transAux.setEstado("Agregado");
+            transAux.setMontoTotal(pedidoAux.getCotizacionTotal());
+            transAux.setFechaPago("24/05/2024");
+            emitirFactoura(transAux);
+        }
 
     }
 

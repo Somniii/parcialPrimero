@@ -50,14 +50,11 @@ public class Tienda extends Empresa implements Comprador, Facturacion {
     public void setTransaccion(Transacciones[] transaccion) {
         this.transaccion = transaccion;
     }
+
     public void agregarArticulo(Articulo articulo){
         System.out.println("ENTRANDO A LA FUNCION ELIMINAR ARTICULO\n");
-        for(Articulo aux: inventario){
-            if(aux == null){
-                //VERIFICAR POR TIPO DE ARTICULO FALTA SETEARLO
-                aux = new Articulo(articulo.getId(),articulo.getNombre(),articulo.getPrecio());
-            }
-            //VER DE ALGUNA MANERA SI NO SE PUDO AGREGAR POR EL TAMANIO DEL ARREGLO
+        for(int i=0;i< inventario.length;i++){
+            Articulo artAux = inventario[i];
         }
     }
     public void eliminarArticulo(Articulo articulo){
@@ -88,7 +85,6 @@ public class Tienda extends Empresa implements Comprador, Facturacion {
             //retornar un articulo vacio
             System.out.println("El inventario esta vacio");
         }
-
     }
     //EMITIR FACTURA REPERCUTE EN LA CANTIDAD DE ARTICULOS DE TIENDA PONER EL VOID DE ELIMINAR O AGREGAR ARTICULO
     //CORRESPONDIENTE
@@ -132,9 +128,13 @@ public class Tienda extends Empresa implements Comprador, Facturacion {
         }
     }
     @Override
-    public void despacharPedidos(Pedido [] pedidos){
+    public void despacharPedidos(Pedido [] pedidos) {
+        for (int i = 0; i < pedidos.length; i++) {
+            Pedido pedidoCliente = pedidos[i];
+            Articulo artAux = pedidoCliente.getArticulo()[i];
+            if (buscarArticulo(artAux)==pedidoCliente.getArticulo()[i]){
 
+            }
+        }
     }
-    }
-
 }
