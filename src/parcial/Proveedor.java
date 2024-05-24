@@ -40,36 +40,26 @@ public class Proveedor extends  Empresa implements Facturacion, Comprador{
     //FALTA EL ESTADO QUE LUEGO SE METE ADENTRO
     public void emitirFactoura(Transacciones transacciones) {
         System.out.println("----EMITIENDO FACTURA DE PROVEEDOR----");
-        System.out.println();
-        Pedido auxPedido = transacciones.getPedido();
-        System.out.println("PEDIDO NUMERO:" + auxPedido.getId() + "" +
-                "\nCANTIDAD DE ARTICULOS:" + auxPedido.getArticulo().length + "\n" +
-                "ESTADO "+transacciones.getEstado()+"\nFECHA PAGO:"+transacciones.getFechaPago()+"\n");
-        //int tamanioPedido = auxPedido.getArticulo().length;
-        double montoTotal = 0;
-        for (Articulo aux : auxPedido.getArticulo()){
-            System.out.println("NOMBRE ARTICULO:" + aux.getNombre());
-            montoTotal = montoTotal + aux.getPrecio();
+        if(transacciones instanceof  Compra){
+            Pedido pedidoAux = transacciones.getPedido();
+            pedidoAux.actualizarCotizacion();
+            //TOTAL PARA EL MONTO TOTAL
+            double totalParaMT = pedidoAux.getCotizacionTotal();
+            transacciones.setPedido(pedidoAux);
+            double montoTotal = 0;
+            if(totalParaMT <100000){
+                transacciones.setMontoTotal(totalParaMT*0.05);
+            }
+            else if(totalParaMT >100000 && totalParaMT <600000){
+                transacciones.setMontoTotal(totalParaMT*0.10);
+            }
+            else if(totalParaMT >600000 && totalParaMT <1200000){
+                transacciones.setMontoTotal(totalParaMT*0.20);
+            }
+            else if(totalParaMT>1200000){
+                transacciones.setMontoTotal(totalParaMT*0.30);
+            }
         }
-            double cotizacionTotal = montoTotal;
-        if(montoTotal <100000){
-            montoTotal = montoTotal*0.05;
-        }
-        else if(montoTotal >100000 && montoTotal <600000){
-            montoTotal = montoTotal*0.10;
-        }
-        else if(montoTotal >600000 && montoTotal <1200000){
-            montoTotal = montoTotal*0.20;
-        }
-        else if(montoTotal>1200000){
-            montoTotal = montoTotal*0.30;
-        }
-        transacciones.setMontoTotal(montoTotal);
-        System.out.println("Cotizacion total = "+cotizacionTotal);
-        System.out.println("MONTO TOTAL CON DESCUENTO="+montoTotal);
-        Pedido pedidoAuxiliar = new Pedido(auxPedido.getId(),auxPedido.getArticulo(),cotizacionTotal,auxPedido.getFechaCotizacion());
-        Transacciones transaccionAuxiliar = new Transacciones(transacciones.getId(), transacciones.getDni() , pedidoAuxiliar, transacciones.getEstado(),transacciones.getFechaPago(), montoTotal);
-
     }
     @Override
     public void despacharPedidos(Pedido [] pedidos){

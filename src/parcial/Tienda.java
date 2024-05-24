@@ -81,12 +81,16 @@ public class Tienda extends Empresa implements Comprador, Facturacion {
                     //retornar eso con un articulo auxiliar
                     return new Articulo(aux.getId(), aux.getNombre(), aux.getPrecio());
                 }
+                else{
+                    
+                }
                 break;
             }
         }
         else{
             //retornar un articulo vacio
             System.out.println("El inventario esta vacio");
+            return null;
         }
 
     }
@@ -96,20 +100,21 @@ public class Tienda extends Empresa implements Comprador, Facturacion {
     //FIJARSE EN EL MAIN CON INSTANCE OF
     public void emitirFactoura(Transacciones transacciones) {
         System.out.println("----EMITIENDO FACTURA DE TIENDA----");
+
+        if(transacciones instanceof Venta){
+            Pedido auxPedido = transacciones.getPedido();
+            auxPedido.actualizarCotizacion();
+            double montoTotal = 0;
+            for (Articulo aux : auxPedido.getArticulo()){
+                montoTotal = montoTotal + aux.getPrecio();
+                eliminarArticulo(aux);
+            }
+            transacciones.setMontoTotal(montoTotal);
+        }
         System.out.println();
         Pedido auxPedido = transacciones.getPedido();
-        System.out.println("PEDIDO NUMERO:" + auxPedido.getId() + "" +
-                "\nCANTIDAD DE ARTICULOS:" + auxPedido.getArticulo().length + "\n" +
-                "ESTADO "+transacciones.getEstado()+"\nFECHA PAGO:"+transacciones.getFechaPago()+"\n");
         //int tamanioPedido = auxPedido.getArticulo().length;
-        double montoTotal = 0;
-        for (Articulo aux : auxPedido.getArticulo()){
-            System.out.println("NOMBRE ARTICULO:" + aux.getNombre());
-            montoTotal = montoTotal + aux.getPrecio();
-            eliminarArticulo(aux);
-        }
-        transacciones.setMontoTotal(montoTotal);
-        System.out.println("MONTO TOTAL/COTIZACION TOTAL ="+montoTotal);
+
 
         Transacciones transaccionAuxiliar = new Transacciones(transacciones.getId(), transacciones.getDni() , transacciones.getPedido(), transacciones.getEstado(),transacciones.getFechaPago(), montoTotal);
         for(Transacciones transAux : transaccion){
