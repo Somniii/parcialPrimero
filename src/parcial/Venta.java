@@ -2,20 +2,20 @@ package parcial;
 
 public class Venta extends Transacciones{
     private Tienda tienda;
-    private Proveedor proveedor;
+    private Cliente cliente;
 
     public Venta() {
     }
 
-    public Venta(Tienda tienda, Proveedor proveedor) {
+    public Venta(Tienda tienda, Cliente cliente) {
         this.tienda = tienda;
-        this.proveedor = proveedor;
+        this.cliente = cliente;
     }
-
-    public Venta(int dni, Pedido pedido, String estado, String fechaPago, double montoTotal, Tienda tienda, Proveedor proveedor) {
-        super(dni, pedido, estado, fechaPago, montoTotal);
+    //VENTA ES DE TIENDA A CLIENTE
+    public Venta(int id, int dni, Pedido pedido, String estado, String fechaPago, double montoTotal, Tienda tienda, Cliente cliente ) {
+        super(id, dni, pedido, estado, fechaPago, montoTotal);
         this.tienda = tienda;
-        this.proveedor = proveedor;
+        this.cliente = cliente;
     }
 
     public Tienda getTienda() {
@@ -26,11 +26,11 @@ public class Venta extends Transacciones{
         this.tienda = tienda;
     }
 
-    public Proveedor getProveedor() {
-        return proveedor;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setProveedor(Proveedor proveedor) {
-        this.proveedor = proveedor;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 }

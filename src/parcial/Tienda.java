@@ -141,6 +141,12 @@ public class Tienda extends Empresa implements Comprador, Facturacion {
     public void despacharPedidos(Pedido [] pedidos){
 
     }
+    public  void realizarPedido(Pedido pedido, Empresa empresa){
+        
     }
 
 }
+
+
+
+
