@@ -130,12 +130,27 @@ public class Tienda extends Empresa implements Comprador, Facturacion {
     }
 
     @Override
-    public void despacharPedidos(Pedido [] pedidos) {
-        for (int i = 0; i < pedidos.length; i++) {
-            Pedido pedidoCliente = pedidos[i];
-            Articulo artAux = pedidoCliente.getArticulo()[i];
-            if (buscarArticulo(artAux)==pedidoCliente.getArticulo()[i]){
+    public void realizarPedido(Pedido pedido, Empresa empresa) {
+        if(empresa instanceof Tienda){
+            for(int i=0;i< pedidoCliente.length;i++){
+                ((Tienda) empresa).pedidoCliente[i]=pedido;
+            }
+        }
+    }
 
+    @Override
+    public void despacharPedidos(Pedido [] pedidos) {
+        int comprobacion = 0;
+        for (int i = 0; i < pedidos.length; i++) {
+            Pedido pedidoAux = pedidos[i];
+            for(int z = 0; z< pedidoAux.getArticulo().length; z++){
+                Articulo artAux = pedidoAux.getArticulo()[z];
+                if(buscarArticulo(artAux.getNombre())!=null){
+                    comprobacion++;
+                }
+            }
+            if(comprobacion== pedidoAux.getArticulo().length){
+                pedidoCliente[i]=pedidoAux;
             }
         }
     }
