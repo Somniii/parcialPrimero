@@ -48,4 +48,7 @@ public class Pedido {
     public void setFechaCotizacion(String fechaCotizacion) {
         this.fechaCotizacion = fechaCotizacion;
     }
+
+
+
 }

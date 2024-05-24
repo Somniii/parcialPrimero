@@ -1,6 +1,6 @@
 package parcial;
 
-public class Proveedor extends  Empresa implements Facturacion{
+public class Proveedor extends  Empresa implements Facturacion, Comprador{
     private String nombreContancto,telefonoContacto;
     private Pedido[] pedidosTienda;
 
@@ -74,6 +74,19 @@ public class Proveedor extends  Empresa implements Facturacion{
     @Override
     public void despacharPedidos(Pedido [] pedidos){
 
+    }
+
+
+
+    @Override
+    public void realizarPedido(Pedido pedido, Empresa empresa) {
+        Pedido[] pedidoAuxiliar = pedidosTienda;
+        for(int i = 0; i<pedidosTienda.length; i++){
+            Pedido pedidoAux = pedidosTienda[i];
+            if(pedidoAux == null){
+                pedidosTienda[i] = pedido;
+            }
+        }
     }
 
 

@@ -1,6 +1,7 @@
 package parcial;
 
-public class Tienda extends Empresa implements Facturacion{
+
+public class Tienda extends Empresa implements Comprador, Facturacion {
     private int sucursal;
     private Articulo[] inventario;
     private Pedido[] pedidoCliente;
@@ -139,6 +140,7 @@ public class Tienda extends Empresa implements Facturacion{
     @Override
     public void despacharPedidos(Pedido [] pedidos){
 
+    }
     }
 
 }
