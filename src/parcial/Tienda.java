@@ -56,7 +56,7 @@ public class Tienda extends Empresa implements Comprador, Facturacion {
         System.out.println("ENTRANDO A LA FUNCION ELIMINAR ARTICULO\n");
         for(int i = 0; i < inventario.length ; i++){
             Articulo inventarioRecorrida = inventario[i];
-            if(inventarioRecorrida == null){
+            if(inventarioRecorrida == new Articulo()){
                 //VERIFICAR POR TIPO DE ARTICULO FALTA SETEARLO
                 inventario[i] = articulo;
             }
@@ -70,7 +70,8 @@ public class Tienda extends Empresa implements Comprador, Facturacion {
             Articulo inventarioAuxiliar =  inventario[i];
             if(inventarioAuxiliar.getId() == articulo.getId()){
                 //ELIMINAR EL ARTICULO PONIENDOLO A 0 , O SINO PONERLE AUX = null
-                inventario[i] = null;
+                inventario[i] = new Articulo();
+                //inventario[i] = null;
             }
             //LO ROMPO PARA QUE NO SIGA ELIMINANDO
             break;
@@ -92,7 +93,7 @@ public class Tienda extends Empresa implements Comprador, Facturacion {
         else{
             //retornar un articulo vacio
             System.out.println("El inventario esta vacio");
-            articuloAEnviar=null;
+            articuloAEnviar=new Articulo();
         }
         return articuloAEnviar;
 
@@ -127,7 +128,7 @@ public class Tienda extends Empresa implements Comprador, Facturacion {
                 /*if(transaccionRecorrer.getId() == transacciones.getId()){
                    transaccion[i] = transaccionAuxiliar;
                 }*/
-                if(transaccionRecorrer == null ){
+                if(transaccionRecorrer == new Transacciones() ){
                     transaccion[i] = transaccionAuxiliar;
                     break;
                 }
@@ -188,27 +189,31 @@ public class Tienda extends Empresa implements Comprador, Facturacion {
     public void despacharPedidos(Pedido[] pedidos) {
         int comprobacion = 0;
         for (int i = 0; i < pedidos.length; i++) {
+            System.out.println("El tamanio de pedidos es "+pedidos.length);
             Pedido pedidoAux = pedidos[i];
-            for (int z = 0; z < pedidoAux.getArticulo().length; z++) {
-                Articulo artAux = pedidoAux.getArticulo()[z];
-                if (buscarArticulo(artAux.getNombre()) != null) {
-                    comprobacion++;
+            System.out.println("El contenido del articulo 1 de uno es "+pedidoAux.getArticulo()[0].getNombre());
+            if(pedidoAux.getArticulo()!=null){
+                for (int z = 0; z < pedidoAux.getArticulo().length; z++) {
+                    Articulo artAux = pedidoAux.getArticulo()[z];
+                    if (buscarArticulo(artAux.getNombre()) != new Articulo()) {
+                        comprobacion++;
+                    }
+                    if (comprobacion == pedidoAux.getArticulo().length) {
+                        pedidoCliente[i] = pedidoAux;
+                        sumadorIdTransaccion++;
+                        Transacciones transaccionAEnviar = new Transacciones(sumadorIdTransaccion, pedidoAux, "ENTREGADO", "24/5/2024", 0);
+                        emitirFactura(transaccionAEnviar);
+                    } else if (comprobacion != pedidoAux.getId() && z == pedidoAux.getArticulo().length) {
+                        //EN CASO QUE SEA CANCELADO SE ENVIA CANCELADO
+                        Transacciones transaccionAEnviar = new Transacciones(sumadorIdTransaccion, pedidoAux, "CANCELADO", "24/5/2024", 0);
+                        emitirFactura(transaccionAEnviar);
+                    }
                 }
-                if (comprobacion == pedidoAux.getArticulo().length) {
-                    pedidoCliente[i] = pedidoAux;
-                    sumadorIdTransaccion++;
-                    Transacciones transaccionAEnviar = new Transacciones(sumadorIdTransaccion, pedidoAux, "ENTREGADO", "24/5/2024", 0);
-                    emitirFactura(transaccionAEnviar);
-                } else if (comprobacion != pedidoAux.getId() && z == pedidoAux.getArticulo().length) {
-                    //EN CASO QUE SEA CANCELADO SE ENVIA CANCELADO
-                    Transacciones transaccionAEnviar = new Transacciones(sumadorIdTransaccion, pedidoAux, "CANCELADO", "24/5/2024", 0);
-                    emitirFactura(transaccionAEnviar);
-                }
+            }else{
+                System.out.println("Es nulo");
             }
         }
 
-
-    
     }
 }
 

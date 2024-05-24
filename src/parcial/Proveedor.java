@@ -70,7 +70,7 @@ public class Proveedor extends  Empresa implements Facturacion, Comprador{
             transaccionAuxiliar = tiendaAux.getTransaccion();
             for(int i = 0; i <tiendaAux.getTransaccion().length;i++) {
                 Transacciones transaccionRecorrer = tiendaAux.getTransaccion()[i];
-                if (transaccionRecorrer == null) {
+                if (transaccionRecorrer == new Transacciones()) {
                     transaccionAuxiliar[i] = transacciones;
                 }
                 break;
@@ -100,7 +100,7 @@ public class Proveedor extends  Empresa implements Facturacion, Comprador{
     public void realizarPedido(Pedido pedido, Empresa empresa) {
         if(empresa instanceof Proveedor){
             for(int i = 0; i< pedidosTienda.length; i++){
-                if(((Proveedor) empresa).pedidosTienda[i]==null){
+                if(((Proveedor) empresa).pedidosTienda[i]==new Pedido()){
                     ((Proveedor) empresa).pedidosTienda[i]=pedido;
                     break;
                 }

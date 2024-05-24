@@ -37,8 +37,21 @@ public class Cliente implements Comprador{
         this.documento = documento;
     }
 
-    public  void realizarPedido(Pedido pedido, Empresa empresa){
+    @Override
+    public void realizarPedido(Pedido pedido, Empresa empresa){
+        System.out.println("Entra");
+        if(empresa instanceof Tienda){
+            Pedido[] pedidos = ((Tienda) empresa).getPedidoCliente();
+            for(int i = 0 ; i < pedidos.length ; i++){
+                if(pedidos[i] == null){
+                    pedidos[i] = pedido;
+                    ((Tienda) empresa).setPedidoCliente(pedidos);
 
+                    break;
+                }
+            }
+            System.out.println("Sale");
+        }
     }
 
 }
