@@ -38,7 +38,7 @@ public class Proveedor extends  Empresa implements Facturacion, Comprador{
         this.pedidosTienda = pedidosTienda;
     }
     //FALTA EL ESTADO QUE LUEGO SE METE ADENTRO
-    public void emitirFactoura(Transacciones transacciones) {
+    public void emitirFactura(Transacciones transacciones) {
         System.out.println("----EMITIENDO FACTURA DE PROVEEDOR----");
         if(transacciones instanceof  Compra){
             Tienda tiendaAux = ((Compra) transacciones).getTienda();
@@ -89,7 +89,7 @@ public class Proveedor extends  Empresa implements Facturacion, Comprador{
             transAux.setEstado("Agregado");
             transAux.setMontoTotal(pedidoAux.getCotizacionTotal());
             transAux.setFechaPago("24/05/2024");
-            emitirFactoura(transAux);
+            emitirFactura(transAux);
         }
 
     }

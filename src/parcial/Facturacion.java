@@ -1,5 +1,5 @@
 package parcial;
 
 public interface Facturacion {
-    public void emitirFactoura(Transacciones transacciones);
+    public void emitirFactura(Transacciones transacciones);
 }

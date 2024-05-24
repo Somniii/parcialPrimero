@@ -12,8 +12,8 @@ public class Venta extends Transacciones{
         this.cliente = cliente;
     }
     //VENTA ES DE TIENDA A CLIENTE
-    public Venta(int id, int dni, Pedido pedido, String estado, String fechaPago, double montoTotal, Tienda tienda, Cliente cliente ) {
-        super(id, dni, pedido, estado, fechaPago, montoTotal);
+    public Venta(int id, Pedido pedido, String estado, String fechaPago, double montoTotal, Tienda tienda, Cliente cliente ) {
+        super(id, pedido, estado, fechaPago, montoTotal);
         this.tienda = tienda;
         this.cliente = cliente;
     }

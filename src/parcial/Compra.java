@@ -12,8 +12,8 @@ public class Compra extends Transacciones {
         this.proveedor = proveedor;
     }
 
-    public Compra(int id,int dni, Pedido pedido, String estado, String fechaPago, double montoTotal, Tienda tienda, Proveedor proveedor) {
-        super(id, dni, pedido, estado, fechaPago, montoTotal);
+    public Compra(int id, Pedido pedido, String estado, String fechaPago, double montoTotal, Tienda tienda, Proveedor proveedor) {
+        super(id, pedido, estado, fechaPago, montoTotal);
         this.tienda = tienda;
         this.proveedor = proveedor;
     }

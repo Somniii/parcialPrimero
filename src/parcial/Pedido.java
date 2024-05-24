@@ -52,7 +52,7 @@ public class Pedido {
     public void actualizarCotizacion(){
         double totalParaCotizacion = 0;
         for(Articulo auxArt: articulo){
-            totalParaCotizacion = totalParaCotizacion + auxArt.getPrecio();;
+            totalParaCotizacion = totalParaCotizacion + auxArt.getPrecio();
         }
         setCotizacionTotal(totalParaCotizacion);
     }

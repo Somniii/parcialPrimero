@@ -6,6 +6,7 @@ public class Tienda extends Empresa implements Comprador, Facturacion {
     private Articulo[] inventario;
     private Pedido[] pedidoCliente;
     private Transacciones[] transaccion;
+    private static int sumadorIdTransaccion = 0;
 
 
     public Tienda() {
@@ -101,7 +102,7 @@ public class Tienda extends Empresa implements Comprador, Facturacion {
     //CORRESPONDIENTE
     //AFECTA UNA PARTE A PROVEEDOR Y OTRA A CLIENTE , OSEA HAY DOS FACTURAS UNA DE COMPRA Y OTRA DE VENTA
     //FIJARSE EN EL MAIN CON INSTANCE OF
-    public void emitirFactoura(Transacciones transacciones) {
+    public void emitirFactura(Transacciones transacciones) {
         System.out.println("----EMITIENDO FACTURA DE TIENDA----");
 
         if(transacciones instanceof Venta){
@@ -118,11 +119,17 @@ public class Tienda extends Empresa implements Comprador, Facturacion {
             transacciones.setPedido(auxPedido);
             transacciones.setMontoTotal(montoTotal);
             //esta es la transaccion que se pone en la tienda
-            Transacciones transaccionAuxiliar = new Transacciones(transacciones.getId(), transacciones.getDni() , transacciones.getPedido(), transacciones.getEstado(),transacciones.getFechaPago(), montoTotal);
+            //NO SE PONEN LAS TRANSACCIONES DE LA TIENDA EN EMITIR FACTURA
+            Transacciones transaccionAuxiliar = new Transacciones(transacciones.getId(), transacciones.getPedido(), transacciones.getEstado(),transacciones.getFechaPago(), montoTotal);
             for(int i = 0; i <getTransaccion().length;i++){
+                //ESTO BUSCA EL IDENTIFICADOR DE LA TRANSACCIONS QUE SE ESTA AÑADIENDO EL MONTO TOTAL Y LUEGO SE LO AGREGA
                 Transacciones transaccionRecorrer = getTransaccion()[i];
-                if(transaccionRecorrer == null){
+                /*if(transaccionRecorrer.getId() == transacciones.getId()){
                    transaccion[i] = transaccionAuxiliar;
+                }*/
+                if(transaccionRecorrer == null ){
+                    transaccion[i] = transaccionAuxiliar;
+                    break;
                 }
             }
         }
@@ -137,9 +144,9 @@ public class Tienda extends Empresa implements Comprador, Facturacion {
             }
         }
     }
-
+//DIVIDIRLO EN DOS PARTES PARA PODER CREAR LA TRANSACCION DE TIPO VENTA Y PASARLO A EL EMITIR FACTURA
     @Override
-    public void despacharPedidos(Pedido [] pedidos) {
+    /*public void despacharPedidos(Pedido[] pedidos){
         int comprobacion = 0;
         for (int i = 0; i < pedidos.length; i++) {
             Pedido pedidoAux = pedidos[i];
@@ -148,11 +155,60 @@ public class Tienda extends Empresa implements Comprador, Facturacion {
                 if(buscarArticulo(artAux.getNombre())!=null){
                     comprobacion++;
                 }
+                if(comprobacion== pedidoAux.getArticulo().length){
+                    pedidoCliente[i]=pedidoAux;
+                    sumadorIdTransaccion++;
+                    Transacciones transaccionAEnviar = new Transacciones(sumadorIdTransaccion,pedidoAux,"ENTREGADO","24/5/2024",0);
+                    //LA BUSCO EN TIENDA POR EL ID, LA MODIFICO CON EMITIR FACTURA Y LA REMPLAZO POR UNA DE TIPO VENTA
+                    for(int j = 0; i <getTransaccion().length;j++){
+                        Transacciones transaccionRecorrer = getTransaccion()[i];
+                        if(transaccionRecorrer == null ){
+                            transaccion[i] = transaccionAEnviar;
+                            break;
+                        }
+                    }
+                    //LO BUSCO EN EL MAIN Y LE PASO EMITIR FACTURA CON LA VENTA emitirFactura(transaccionAEnviar);
+                }
+                else if(comprobacion != pedidoAux.getId()&&z==pedidoAux.getArticulo().length){
+                    //EN CASO QUE SEA CANCELADO SE ENVIA CANCELADO
+                    Transacciones transaccionAEnviar = new Transacciones(sumadorIdTransaccion,pedidoAux,"CANCELADO","24/5/2024",0);
+                    for(int j = 0; i <getTransaccion().length;j++){
+                        Transacciones transaccionRecorrer = getTransaccion()[i];
+                        if(transaccionRecorrer == null ){
+                            transaccion[i] = transaccionAEnviar;
+                            break;
+                        }
+                    }
+                    //lo mismo emitirFactura(transaccionAEnviar);
+                }
             }
-            if(comprobacion== pedidoAux.getArticulo().length){
-                pedidoCliente[i]=pedidoAux;
+
+        }
+    }*/
+    public void despacharPedidos(Pedido[] pedidos) {
+        int comprobacion = 0;
+        for (int i = 0; i < pedidos.length; i++) {
+            Pedido pedidoAux = pedidos[i];
+            for (int z = 0; z < pedidoAux.getArticulo().length; z++) {
+                Articulo artAux = pedidoAux.getArticulo()[z];
+                if (buscarArticulo(artAux.getNombre()) != null) {
+                    comprobacion++;
+                }
+                if (comprobacion == pedidoAux.getArticulo().length) {
+                    pedidoCliente[i] = pedidoAux;
+                    sumadorIdTransaccion++;
+                    Transacciones transaccionAEnviar = new Transacciones(sumadorIdTransaccion, pedidoAux, "ENTREGADO", "24/5/2024", 0);
+                    emitirFactura(transaccionAEnviar);
+                } else if (comprobacion != pedidoAux.getId() && z == pedidoAux.getArticulo().length) {
+                    //EN CASO QUE SEA CANCELADO SE ENVIA CANCELADO
+                    Transacciones transaccionAEnviar = new Transacciones(sumadorIdTransaccion, pedidoAux, "CANCELADO", "24/5/2024", 0);
+                    emitirFactura(transaccionAEnviar);
+                }
             }
         }
+
+
+    
     }
 }
 

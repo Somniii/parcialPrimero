@@ -2,7 +2,6 @@ package parcial;
 
 public class Transacciones {
     private int id;
-    private int dni;
     private Pedido pedido;
     private String estado;
     private String fechaPago;
@@ -11,22 +10,15 @@ public class Transacciones {
     public Transacciones() {
     }
 
-    public Transacciones(int id, int dni, Pedido pedido, String estado, String fechaPago, double montoTotal) {
+    public Transacciones(int id, Pedido pedido, String estado, String fechaPago, double montoTotal) {
         this.id = id;
-        this.dni = dni;
         this.pedido = pedido;
         this.estado = estado;
         this.fechaPago = fechaPago;
         this.montoTotal = montoTotal;
     }
 
-    public int getDni() {
-        return dni;
-    }
 
-    public void setDni(int dni) {
-        this.dni = dni;
-    }
 
     public Pedido getPedido() {
         return pedido;
