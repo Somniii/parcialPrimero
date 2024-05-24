@@ -13,25 +13,16 @@ public class Cliente implements Comprador{
         this.documento = documento;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    public String getApellido() {
-        return apellido;
-    }
 
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
 
-    public int getDocumento() {
-        return documento;
-    }
 
     public void setDocumento(int documento) {
         this.documento = documento;
@@ -40,14 +31,16 @@ public class Cliente implements Comprador{
     @Override
     public void realizarPedido(Pedido pedido, Empresa empresa){
         if(empresa instanceof Tienda){
-            Pedido[] pedidos = ((Tienda) empresa).getPedidoCliente();
-            for(int i = 0 ; i < pedidos.length ; i++){
-                if(pedidos[i] == null){
-                    pedidos[i] = pedido;
-                    ((Tienda) empresa).setPedidoCliente(pedidos);
-                    break;
+            if(((Tienda) empresa).getPedidoCliente()!=null){
+                Pedido[] pediAux = ((Tienda) empresa).getPedidoCliente();
+                for(int i=0; i<((Tienda) empresa).getPedidoCliente().length;i++){
+                    if(((Tienda) empresa).getPedidoCliente()[i]==null){
+                        pediAux[i]=pedido;
+                        ((Tienda) empresa).setPedidoCliente(pediAux);
+                    }
                 }
             }
+
         }
     }
 }

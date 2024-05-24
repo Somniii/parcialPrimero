@@ -44,10 +44,6 @@ public class Transacciones {
         this.fechaPago = fechaPago;
     }
 
-    public double getMontoTotal() {
-        return montoTotal;
-    }
-
     public void setMontoTotal(double montoTotal) {
         this.montoTotal = montoTotal;
     }

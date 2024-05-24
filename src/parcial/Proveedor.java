@@ -18,25 +18,17 @@ public class Proveedor extends  Empresa implements Facturacion, Comprador{
         return nombreContancto;
     }
 
-    public void setNombreContancto(String nombreContancto) {
-        this.nombreContancto = nombreContancto;
-    }
 
     public String getTelefonoContacto() {
         return telefonoContacto;
     }
 
-    public void setTelefonoContacto(String telefonoContacto) {
-        this.telefonoContacto = telefonoContacto;
-    }
 
     public Pedido[] getPedidosTienda() {
         return pedidosTienda;
     }
 
-    public void setPedidosTienda(Pedido[] pedidosTienda) {
-        this.pedidosTienda = pedidosTienda;
-    }
+
     //FALTA EL ESTADO QUE LUEGO SE METE ADENTRO
     public void emitirFactura(Transacciones transacciones) {
         System.out.println("----EMITIENDO FACTURA DE PROVEEDOR----");

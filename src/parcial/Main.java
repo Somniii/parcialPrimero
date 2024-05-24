@@ -21,7 +21,7 @@ public class Main {
             System.out.println("Precio del producto" +auxArt.getPrecio());
         }
     }
-    /*public static Pedido cargarPedido(Scanner scan, Tienda t){
+    public static Pedido cargarPedido(Scanner scan, Tienda t){
         mostrarInventario(t);
         Pedido pedidoCliente = new Pedido();
         System.out.println("Ingrese la codigo del articulo que desea comprar");
@@ -32,7 +32,8 @@ public class Main {
             }
         }
 
-    }*/
+    }
+
     public static int menuAdministrador(Scanner scan){
         System.out.println("Bienvenido al menu de administrador" +
                 "\n¿Que desea realizar?\n1.Comprobacion Automatica del codigo" +

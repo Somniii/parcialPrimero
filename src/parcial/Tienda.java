@@ -9,8 +9,6 @@ public class Tienda extends Empresa implements Comprador, Facturacion {
     private static int sumadorIdTransaccion = 0;
 
 
-    public Tienda() {
-    }
 
     public Tienda(String nombre, String cuit, int sucursal, Articulo[] inventario, Pedido[] pedidoCliente, Transacciones[] transaccion) {
         super(nombre, cuit);
@@ -66,7 +64,7 @@ public class Tienda extends Empresa implements Comprador, Facturacion {
     }
     public void eliminarArticulo(Articulo articulo){
         System.out.println("ENTRANDO A LA FUNCION ELIMINAR ARTICULO");
-        for(int i = 0; i < inventario.length ; i++){
+        for(int i = 0; i < inventario.length ;i++){
             Articulo inventarioAuxiliar =  inventario[i];
             if(inventarioAuxiliar.getId() == articulo.getId()){
                 //ELIMINAR EL ARTICULO PONIENDOLO A 0 , O SINO PONERLE AUX = null
