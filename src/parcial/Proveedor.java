@@ -40,36 +40,44 @@ public class Proveedor extends  Empresa implements Facturacion, Comprador{
     //FALTA EL ESTADO QUE LUEGO SE METE ADENTRO
     public void emitirFactoura(Transacciones transacciones) {
         System.out.println("----EMITIENDO FACTURA DE PROVEEDOR----");
-        System.out.println();
-        Pedido auxPedido = transacciones.getPedido();
-        System.out.println("PEDIDO NUMERO:" + auxPedido.getId() + "" +
-                "\nCANTIDAD DE ARTICULOS:" + auxPedido.getArticulo().length + "\n" +
-                "ESTADO "+transacciones.getEstado()+"\nFECHA PAGO:"+transacciones.getFechaPago()+"\n");
-        //int tamanioPedido = auxPedido.getArticulo().length;
-        double montoTotal = 0;
-        for (Articulo aux : auxPedido.getArticulo()){
-            System.out.println("NOMBRE ARTICULO:" + aux.getNombre());
-            montoTotal = montoTotal + aux.getPrecio();
-        }
-            double cotizacionTotal = montoTotal;
-        if(montoTotal <100000){
-            montoTotal = montoTotal*0.05;
-        }
-        else if(montoTotal >100000 && montoTotal <600000){
-            montoTotal = montoTotal*0.10;
-        }
-        else if(montoTotal >600000 && montoTotal <1200000){
-            montoTotal = montoTotal*0.20;
-        }
-        else if(montoTotal>1200000){
-            montoTotal = montoTotal*0.30;
-        }
-        transacciones.setMontoTotal(montoTotal);
-        System.out.println("Cotizacion total = "+cotizacionTotal);
-        System.out.println("MONTO TOTAL CON DESCUENTO="+montoTotal);
-        Pedido pedidoAuxiliar = new Pedido(auxPedido.getId(),auxPedido.getArticulo(),cotizacionTotal,auxPedido.getFechaCotizacion());
-        Transacciones transaccionAuxiliar = new Transacciones(transacciones.getId(), transacciones.getDni() , pedidoAuxiliar, transacciones.getEstado(),transacciones.getFechaPago(), montoTotal);
+        if(transacciones instanceof  Compra){
+            Tienda tiendaAux = ((Compra) transacciones).getTienda();
 
+            Pedido pedidoAux = transacciones.getPedido();
+            pedidoAux.actualizarCotizacion();
+            //COLOCAR LOS ARTICULOS INGRESADOS EN TIENDA QUE REALIZA LA TRANSACCION
+
+            for (Articulo aux : pedidoAux.getArticulo()){
+                //agregarArticulo(aux);
+                tiendaAux.agregarArticulo(aux);
+            }
+            //TOTAL PARA EL MONTO TOTAL
+            double totalParaMT = pedidoAux.getCotizacionTotal();
+            transacciones.setPedido(pedidoAux);
+            if(totalParaMT <100000){
+                transacciones.setMontoTotal(totalParaMT*0.05);
+            }
+            else if(totalParaMT >100000 && totalParaMT <600000){
+                transacciones.setMontoTotal(totalParaMT*0.10);
+            }
+            else if(totalParaMT >600000 && totalParaMT <1200000){
+                transacciones.setMontoTotal(totalParaMT*0.20);
+            }
+            else if(totalParaMT>1200000){
+                transacciones.setMontoTotal(totalParaMT*0.30);
+            }
+            Transacciones[] transaccionAuxiliar = new Transacciones[tiendaAux.getTransaccion().length];
+            transaccionAuxiliar = tiendaAux.getTransaccion();
+            for(int i = 0; i <tiendaAux.getTransaccion().length;i++) {
+                Transacciones transaccionRecorrer = tiendaAux.getTransaccion()[i];
+                if (transaccionRecorrer == null) {
+                    transaccionAuxiliar[i] = transacciones;
+                }
+                break;
+            }
+            tiendaAux.setTransaccion(transaccionAuxiliar);
+
+        }
     }
     @Override
     public void despacharPedidos(Pedido [] pedidos){

@@ -20,4 +20,9 @@ public class Componente extends Articulo{
     public void setMarca(String marca) {
         this.marca = marca;
     }
+    @Override
+    public String toString(){
+        return "-----------------------" +
+                "----\n\"COMPONENTE:\nID:"+getId()+"\nMARCA:"+getMarca()+"\nNOMBRE:"+getNombre()+"\nPRECIO"+getPrecio();
+    }
 }

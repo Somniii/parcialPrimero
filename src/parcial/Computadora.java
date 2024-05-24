@@ -18,4 +18,8 @@ public class Computadora extends Componente{
     public void setEspecificaciones(String especificaciones) {
         this.especificaciones = especificaciones;
     }
+    public String toString(){
+        return "-----------------------" +
+                "----\n\"COMPONENTE:\nID:"+getId()+"\nMARCA:"+getMarca()+"\nNOMBRE:"+getNombre()+"\nPRECIO"+getPrecio()+"\nESPECIFICACIONES:"+getEspecificaciones();
+    }
 }

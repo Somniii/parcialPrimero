@@ -37,5 +37,8 @@ public class Cliente implements Comprador{
         this.documento = documento;
     }
 
+    public  void realizarPedido(Pedido pedido, Empresa empresa){
+
+    }
 
 }

@@ -49,6 +49,13 @@ public class Pedido {
         this.fechaCotizacion = fechaCotizacion;
     }
 
+    public void actualizarCotizacion(){
+        double totalParaCotizacion = 0;
+        for(Articulo auxArt: articulo){
+            totalParaCotizacion = totalParaCotizacion + auxArt.getPrecio();;
+        }
+        setCotizacionTotal(totalParaCotizacion);
+    }
 
 
 }

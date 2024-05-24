@@ -37,4 +37,8 @@ public class Articulo {
     public void setPrecio(double precio) {
         this.precio = precio;
     }
+    public String toString(){
+        return "-----------------------" +
+                "----\n\"ARTICULO:\nID:"+getId()+"\nNOMBRE:"+getNombre()+"\nPRECIO"+getPrecio();
+    }
 }
